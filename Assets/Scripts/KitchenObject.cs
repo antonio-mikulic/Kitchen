@@ -1,37 +1,36 @@
+using Assets.Scripts;
 using UnityEngine;
 
 public class KitchenObject : MonoBehaviour
 {
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
-    private ClearCounter clearCounter;
+    private IKitchenObjectParent parent;
 
     public KitchenObjectSO GetKitchenObjectSO()
     {
         return kitchenObjectSO;
     }
 
-    public void SetClearCounter(ClearCounter counter)
+    public void SetParent(IKitchenObjectParent parent)
     {
-        if (clearCounter != null)
-            clearCounter.ClearKitchenObject();
+        if (this.parent != null)
+            this.parent.ClearKitchenObject();
 
-        clearCounter = counter;
+        this.parent = parent;
 
-        if (clearCounter.HasKitchenObject())
-        {
-            Debug.LogError("Counter already has a kitchen object");
-        }
+        if (this.parent.HasKitchenObject())
+            Debug.LogError("KitchenParent already has a kitchen object");
 
-        clearCounter.SetKitchenObject(this);
+        this.parent.SetKitchenObject(this);
 
-        transform.parent = counter.GetKitchenObjectoFollowTransform();
+        transform.parent = this.parent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
     }
 
-    public ClearCounter GetClearCounter()
+    public IKitchenObjectParent GetParent()
     {
-        return clearCounter;
+        return parent;
     }
 
 }
