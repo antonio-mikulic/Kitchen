@@ -74,23 +74,41 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2496484738516605875}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2184864156403576584, guid: 10d9551d3d2347b4896da594dcada5b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8979818978688053673}
   m_SourcePrefab: {fileID: 100100000, guid: 10d9551d3d2347b4896da594dcada5b4, type: 3}
---- !u!114 &2003347068680176453 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1743259291497750472, guid: 10d9551d3d2347b4896da594dcada5b4,
+--- !u!1 &2138698285004944261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2184864156403576584, guid: 10d9551d3d2347b4896da594dcada5b4,
     type: 3}
   m_PrefabInstance: {fileID: 287135939357039757}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &8979818978688053673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138698285004944261}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d5a963ab473b3f44a190c40d50859fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  counterTopPoint: {fileID: 7272104977858278542}
+  kitchenObjectSO: {fileID: 11400000, guid: d261019374f451a429185ecaad5c81d0, type: 2}
 --- !u!4 &4335511713288900361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4600084467090887556, guid: 10d9551d3d2347b4896da594dcada5b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 287135939357039757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7272104977858278542 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7428591305687066627, guid: 10d9551d3d2347b4896da594dcada5b4,
     type: 3}
   m_PrefabInstance: {fileID: 287135939357039757}
   m_PrefabAsset: {fileID: 0}
@@ -214,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31adb74fec4e1b4baddd159633e250e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseCounter: {fileID: 2003347068680176453}
+  baseCounter: {fileID: 8979818978688053673}
   visualGameObjectArray:
   - {fileID: 7555703898952399959}
 --- !u!4 &2496484738516605875 stripped
