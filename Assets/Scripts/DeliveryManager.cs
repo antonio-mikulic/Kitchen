@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliveryManager : MonoBehaviour
 {
+    public event EventHandler OnRecipeSpawned;
+    public event EventHandler OnRecipeCompleted;
+
     public static DeliveryManager Instance { get; private set; }
 
     [SerializeField] private RecipeListSO recipeListSO;
 
-    private List<RecipeSO> waitingRecipes;
+    private List<RecipeSO> waitingRecipeSOList;
 
 
     private float spawnRecipeTimer;
@@ -17,7 +21,7 @@ public class DeliveryManager : MonoBehaviour
     public void Awake()
     {
         Instance = this;
-        waitingRecipes = new List<RecipeSO>();
+        waitingRecipeSOList = new List<RecipeSO>();
     }
 
     private void Update()
@@ -25,21 +29,22 @@ public class DeliveryManager : MonoBehaviour
         spawnRecipeTimer -= Time.deltaTime;
         if (spawnRecipeTimer <= 0f)
         {
-            if (waitingRecipes.Count < waitingRecipesMax)
+            if (waitingRecipeSOList.Count < waitingRecipesMax)
             {
                 spawnRecipeTimer = spawnRecipeTimerMax;
-                RecipeSO waiting = recipeListSO.recipes[Random.Range(0, recipeListSO.recipes.Count)];
-                Debug.Log("New recipe: " + waiting.name);
-                waitingRecipes.Add(waiting);
+                RecipeSO waiting = recipeListSO.recipes[UnityEngine.Random.Range(0, recipeListSO.recipes.Count)];
+                waitingRecipeSOList.Add(waiting);
+                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+                Debug.Log("Recipe spawned: " + waiting.name);
             }
         }
     }
 
     public void DeliverRecipe(PlateKitchenObject plateKitchenObject)
     {
-        for (int i = 0; i < waitingRecipes.Count; i++)
+        for (int i = 0; i < waitingRecipeSOList.Count; i++)
         {
-            RecipeSO waitingRecipe = waitingRecipes[i];
+            RecipeSO waitingRecipe = waitingRecipeSOList[i];
             List<KitchenObjectSO> kitchenObjectsOnPlate = plateKitchenObject.GetKitchenObjectSOList();
 
             if (waitingRecipe.kitchenObjectSOList.Count != kitchenObjectsOnPlate.Count)
@@ -52,14 +57,18 @@ public class DeliveryManager : MonoBehaviour
 
             if (matching == waitingRecipe.kitchenObjectSOList.Count)
             {
-                waitingRecipes.RemoveAt(i);
+                waitingRecipeSOList.RemoveAt(i);
                 Debug.Log("Recipe delivered: " + waitingRecipe.name);
+                OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                 return;
             }
             else
                 Debug.Log("Delivery not matching recipe: " + waitingRecipe.name);
         }
+    }
 
-        Debug.Log("Recipe not found");
+    public List<RecipeSO> GetWaitingRecipeSOList()
+    {
+        return waitingRecipeSOList;
     }
 }
