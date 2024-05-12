@@ -13,7 +13,7 @@ public class GameStartCountdownUI : MonoBehaviour
 
     private void Update()
     {
-        countdownText.text = KitchenGameManager.Instance.GetCountdownToStartTimer().ToString("0.0");
+        countdownText.text = KitchenGameManager.Instance.GetCountdownToStartTimer().ToString("0");
     }
 
     private void KitchenGameManager_StateChanged(object sender, EventArgs e)
