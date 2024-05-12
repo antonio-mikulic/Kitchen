@@ -24,6 +24,7 @@ public class DeliveryManager : MonoBehaviour
     public void Awake()
     {
         Instance = this;
+        spawnRecipeTimer = spawnRecipeTimerMax;
         waitingRecipeSOList = new List<RecipeSO>();
     }
 
@@ -38,7 +39,6 @@ public class DeliveryManager : MonoBehaviour
                 RecipeSO waiting = recipeListSO.recipes[UnityEngine.Random.Range(0, recipeListSO.recipes.Count)];
                 waitingRecipeSOList.Add(waiting);
                 OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
-                Debug.Log("Recipe spawned: " + waiting.name);
             }
         }
     }
