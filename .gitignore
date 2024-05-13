@@ -57,3 +57,6 @@ sysinfo.txt
  
 # Crashlytics generated file
 crashlytics-build.properties
+/WebGL Builds
+/connectwebgl.zip
+/webgl_sharing
