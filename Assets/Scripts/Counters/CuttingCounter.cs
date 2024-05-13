@@ -38,7 +38,15 @@ public class CuttingCounter : BaseCounter, IHasProgress
         else
         {
             if (!player.HasKitchenObject())
+            {
                 GetKitchenObject().SetParent(player);
+                cuttingProgress = 0;
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                {
+                    progressNormalized = cuttingProgress
+                });
+
+            }
             else if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
             {
                 bool isAdded = plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO());
